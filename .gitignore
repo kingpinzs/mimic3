@@ -10,6 +10,7 @@ htmlcov
 
 dist/
 .venv/
+venv/
 *.wav
 *.spec
 *.egg-info/
@@ -19,3 +20,5 @@ dist/
 /voices/
 /wheels/*.whl
 /plugin-tts-mimic3/
+
+.vscode
