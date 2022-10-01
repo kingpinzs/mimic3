@@ -22,6 +22,7 @@ import typing
 from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
+from platform import system
 
 from gruut_ipa import IPA
 from xdgenvpy import XDG
@@ -166,16 +167,20 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
             - /usr/local/share/mycroft/mimic3/voices
             - /usr/share/mycroft/mimic3/voices
 
-        On Windows, they are not there
+        On Windows, this is typicall:
+            - C:\\mycroft\\mimic3\\voices
+            - c:\\Users\\[Your_user]\\AppData\\Roaming\\usr\share\\mycroft\\mimic3\\voicesg
         """
-        print(
-            Path(d) / "mycroft" / "mimic3" / "voices"
-            for d in XDG().XDG_DATA_DIRS.split(":")
-        )
-        return [
-            Path(d) / "mycroft" / "mimic3" / "voices"
-            for d in XDG().XDG_DATA_DIRS.split(":")
-        ]
+        if system() == "Linux":
+            return [
+                Path(d) / "mycroft" / "mimic3" / "voices"
+                for d in XDG().XDG_DATA_DIRS.split(":")
+            ]
+        if system() == "Windows":
+            return [
+                Path(d) / "mycroft" / "mimic3" / "voices"
+                for d in XDG().XDG_DATA_DIRS.split(";")
+            ]
 
     def get_voices(self) -> typing.Iterable[Voice]:
         """Returns an iterable of all available voices"""
