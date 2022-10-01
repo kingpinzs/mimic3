@@ -1,6 +1,7 @@
 dataclasses-json<1.0
 epitran==1.17
-espeak-phonemizer>=1.0,<2.0
+#espeak-phonemizer>=1.0,<2.0
+phonemizer
 gruut>=2.3.0,<3.0
 numpy<2.0
 onnxruntime>=1.6,<2.0
@@ -11,3 +12,4 @@ requests>=2,<3
 swagger-ui-py>=21,<22
 tqdm>=4,<5
 xdgenvpy>2.0,<3
+regex<2022.3.15

@@ -165,7 +165,11 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
             - $HOME/.local/share/mycroft/mimic3/voices
             - /usr/local/share/mycroft/mimic3/voices
             - /usr/share/mycroft/mimic3/voices
+
+        On Windows, they are not there
         """
+        print(Path(d) / "mycroft" / "mimic3" / "voices"
+            for d in XDG().XDG_DATA_DIRS.split(":"))
         return [
             Path(d) / "mycroft" / "mimic3" / "voices"
             for d in XDG().XDG_DATA_DIRS.split(":")
@@ -177,6 +181,8 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
             typing.Union[str, Path]
         ] = Mimic3TextToSpeechSystem.get_default_voices_directories()
 
+        print(voices_dirs)
+        print("0.5")
         if self.settings.voices_directories is not None:
             voices_dirs = itertools.chain(self.settings.voices_directories, voices_dirs)
 
@@ -292,6 +298,8 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
 
         if WILDCARD in voice_key:
             key_or_pattern = wildcard_to_regex(voice_key, wildcard=WILDCARD)
+            print(key_or_pattern)
+            print("start debug")
             if isinstance(key_or_pattern, re.Pattern):
                 # Wildcards
                 for maybe_key in _VOICES.keys():
@@ -562,9 +570,9 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
             if (voice_key == maybe_voice.key) or (
                 maybe_voice.aliases and (voice_key in maybe_voice.aliases)
             ):
+                print(maybe_voice)
                 maybe_model_dir = Path(maybe_voice.location)
-
-                if (not maybe_model_dir.is_dir()) and (not self.settings.no_download):
+                if (not maybe_model_dir.is_dir()) and  (not self.settings.no_download):
                     # Download voice
                     maybe_model_dir = self._download_voice(voice_key)
 

@@ -25,7 +25,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape as xmlescape
 
 import epitran
-import espeak_phonemizer
+import phonemizer
 import gruut
 import numpy as np
 import onnxruntime
@@ -482,7 +482,7 @@ class EspeakVoice(Mimic3Voice):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._phonemizer = espeak_phonemizer.Phonemizer()
+        self._phonemizer = phonemizer.Phonemizer()
 
     def text_to_phonemes(
         self, text: str, text_language: typing.Optional[str] = None
