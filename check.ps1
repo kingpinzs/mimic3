@@ -13,9 +13,7 @@ if (Test-Path $venv) {
 $testFiles = $this_dir + "\tests"
 
 #get all python files in directory
-Get-ChildItem -Path $testFiles -Filter *.py -Recurse | Select-Object -ExpandProperty $python_files
-
-$python_files
+$python_files = Get-ChildItem -Path $testFiles -Filter *.py -File | Select -expand FullName 
 
 $modules = @('mimic3_tts', 'mimic3_http', 'opentts_abc')
 
@@ -23,18 +21,11 @@ foreach ($module_name in $modules) {
     $python_files += $module_name
 }
 
-$python_files
-
-<#
-for module_name in 'mimic3_tts' 'mimic3_http' 'opentts_abc'; do
-    python_files+=("${module_name}")
-done
-
 # Format code
-black "${python_files[@]}"
-isort "${python_files[@]}"
+black $python_files
+isort $python_files
 
 # Check
-flake8 "${python_files[@]}"
-pylint "${python_files[@]}"
-mypy "${python_files[@]}" #>
+flake8 $python_files
+pylint $python_files
+mypy $python_files

@@ -168,8 +168,10 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
 
         On Windows, they are not there
         """
-        print(Path(d) / "mycroft" / "mimic3" / "voices"
-            for d in XDG().XDG_DATA_DIRS.split(":"))
+        print(
+            Path(d) / "mycroft" / "mimic3" / "voices"
+            for d in XDG().XDG_DATA_DIRS.split(":")
+        )
         return [
             Path(d) / "mycroft" / "mimic3" / "voices"
             for d in XDG().XDG_DATA_DIRS.split(":")
@@ -572,7 +574,7 @@ class Mimic3TextToSpeechSystem(TextToSpeechSystem):
             ):
                 print(maybe_voice)
                 maybe_model_dir = Path(maybe_voice.location)
-                if (not maybe_model_dir.is_dir()) and  (not self.settings.no_download):
+                if (not maybe_model_dir.is_dir()) and (not self.settings.no_download):
                     # Download voice
                     maybe_model_dir = self._download_voice(voice_key)
 

@@ -25,11 +25,11 @@ from pathlib import Path
 from xml.sax.saxutils import escape as xmlescape
 
 import epitran
-import phonemizer
 import gruut
 import numpy as np
 import onnxruntime
 import phonemes2ids
+import phonemizer
 from gruut_ipa import IPA
 
 from .config import Phonemizer, TrainingConfig
